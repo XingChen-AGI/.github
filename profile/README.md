@@ -110,5 +110,3 @@ Or try it on the [Tianyi AI open platform](https://www.teleai.com.cn/) (天翼AI
 <i>Let's bring open models into real production — together with developers, researchers and enterprises.</i><br/>
 <b>Built by 中电信人工智能科技（北京）有限公司</b> · Made with ❤️ for the open-source community
 </p>
-
-> AI生成
