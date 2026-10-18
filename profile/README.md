@@ -85,9 +85,9 @@ Weights & code are open-sourced on [HuggingFace](https://huggingface.co/XingChen
 | --- | --- |
 | GitHub (here) | `XingChen-AGI` |
 | Hugging Face | [huggingface.co/XingChen-AGI](https://huggingface.co/XingChen-AGI) |
-| ModelScope (魔搭) | `XingChen-AGI` |
+| ModelScope | `XingChen-AGI` |
 | Gitee / Modelers / AtomGit | `XingChen-AGI` |
-| Tianyi AI Open Platform (天翼AI开放平台) | [teleai.com.cn](https://www.teleai.com.cn/) |
+| Tianyi AI Open Platform | [teleai.com.cn](https://www.teleai.com.cn/) |
 
 ---
 
