@@ -1,10 +1,10 @@
 <div align="center">
 
-# ⭐ XingChen-AGI · 星辰开源
+# ⭐ XingChen-AGI
 
-### From "answering questions" to "getting things done" — 让百亿参数模型从"会回答"变成"会做事"
+### From "answering questions" to "getting things done" 
 
-The open-source organization of **China Telecom AI Technology Co., Ltd. (中电信人工智能科技)**，
+The open-source organization of **China Telecom AI Technology Co., Ltd.**，
 building agent-era large language models and multimodal document intelligence on a **fully domestic stack**.
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/XingChen-AGI/Xing4.0-29B-A4B/blob/main/LICENSE)
