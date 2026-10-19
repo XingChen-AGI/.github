@@ -34,7 +34,7 @@ building agent-era large language models and multimodal document intelligence on
 [![HuggingFace](https://img.shields.io/badge/HF-XingChen--AGI%2FXing4.0--29B--A4B-yellow)](https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue)](https://github.com/XingChen-AGI/Xing4.0-29B-A4B/blob/main/LICENSE)
 
-A **Mixture-of-Experts (MoE)** model trained on Huawei Ascend superclusters with the **MindSpore** framework — natively domestic, from silicon to software, with **no PyTorch dependency** in training.
+A **Mixture-of-Experts (MoE)** model — trained end-to-end on a fully in-house stack, from silicon to software.
 
 | Dimension | Value |
 |---|---|
@@ -58,6 +58,21 @@ A **Mixture-of-Experts (MoE)** model trained on Huawei Ascend superclusters with
 
 ---
 
+### Xing4.0-29B-Intent — schema-guided structured output
+
+[![GitHub](https://img.shields.io/badge/GitHub%20Repo-Xing4.0--29B--Intent-181717?logo=github)](https://github.com/XingChen-AGI/Xing4.0-29B-Intent)
+[![HuggingFace](https://img.shields.io/badge/HF-XingChen--AGI%2FXing4.0--29B--Intent-yellow)](https://huggingface.co/XingChen-AGI/Xing4.0-29B-Intent)
+[![ModelScope](https://img.shields.io/badge/ModelScope-XingChen--AGI%2FXing4.0--29B--Intent-blue)](https://modelscope.cn/models/XingChen-AGI/Xing4.0-29B-Intent)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue)](https://github.com/XingChen-AGI/Xing4.0-29B-Intent/blob/main/LICENSE)
+
+A task-specific model for **schema-guided intent recognition and structured information extraction** — turns natural language into structured JSON for business systems: intelligent assistants, request routing and document extraction.
+
+- 🎯 **Four tasks in one model**: intent recognition & slot filling · named entity recognition · relation extraction · event extraction — unified `category + args` output, configured by schema
+- 🏆 **Top overall score (58)** ahead of Gemini-3.6-Flash (49), Qwen3.8-Max (46) and GPT-5.6-Sol (45) — **best on 5 of 6 metrics**
+- 📚 Companion dataset: **2.75M samples** unifying **61 public datasets** in one schema-guided format (4 task types · 19 domains · 52 languages)
+- 🧰 [XingIntent SDK](https://github.com/XingChen-AGI/Xing4.0-29B-Intent/tree/main/XingIntentSDK) — schema-driven training and structured inference tooling
+- 📦 Precision build: [FP8](https://huggingface.co/XingChen-AGI/Xing4.0-29B-Intent-FP8)
+- 🌐 Chinese & English
 ## 🧠 Also on our radar: TeleOCR
 
 A compact (≈1.2B) document-parsing VLM (formerly *NaviDC-OCR*) that robustly parses **complex layouts, tables, formulas and scientific charts** — including distorted real-world captures.
@@ -72,7 +87,7 @@ Weights & code are open-sourced on [HuggingFace](https://huggingface.co/XingChen
 
 ## 🛠 Why build on XingChen-AGI
 
-- **🇨🇳 Fully domestic pipeline** — Ascend training → MindSpore → self-developed architecture → domestic inference (Ascend / Hygon / Moore Threads…). "**Native domestic**", not "ported to domestic".
+- **🇨🇳 Fully in-house pipeline** — self-developed architecture, trained and inferred on domestic silicon.
 - **💰 Cost-efficient MoE** — ~15GB VRAM inference on a single consumer GPU; only 4B params activated per token.
 - **🔓 Open & auditable** — Apache-2.0 weights (BF16 / FP8 / INT4), open inference code, official integration docs.
 - **🏢 Enterprise-grade** — trusted engineering for real production workloads.
@@ -102,11 +117,11 @@ cd Xing4.0-29B-A4B
 cd ../Xing4.0-plugin && pip install .
 ```
 
-Or try it on the [Tianyi AI open platform](https://www.teleai.com.cn/) (天翼AI开放平台).
+Or try it on the [Tianyi AI open platform](https://www.teleai.com.cn/) .
 
 ---
 
 <p align="center">
 <i>Let's bring open models into real production — together with developers, researchers and enterprises.</i><br/>
-<b>Built by 中电信人工智能科技（北京）有限公司</b> · Made with ❤️ for the open-source community
+<b>Built by China Telecom Artificial Intelligence Technology Co., Ltd.</b> · Made with ❤️ for the open-source community
 </p>
