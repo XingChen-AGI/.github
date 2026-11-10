@@ -49,7 +49,14 @@ A **Mixture-of-Experts (MoE)** model — trained end-to-end on a fully in-house 
 
 - **SWE-bench Verified 75.0** — a flagship code-agent score
 - **SuperCLUE Agent 93.52** (ranked **#3**)
-- Integrates with **LLaMA-Factory, vLLM, SGLang, OpenCode, Claude Code** out of the box
+
+**Native upstream support, merged into the mainlines:**
+
+- **llama.cpp** ([#31589](https://github.com/ggml-org/llama.cpp/pull/31589), **b12174+**) — mainline GGUF inference on CPU / CUDA with zero new ggml operators
+- **SGLang** ([#39793](https://github.com/sgl-project/sglang/pull/39793)) — native serving support
+- **Training**: ms-swift ([#10275](https://github.com/modelscope/ms-swift/pull/10275)) and LLaMA-Factory ([#10754](https://github.com/hiyouga/LlamaFactory/pull/10754)) merged
+- **vLLM** — via the official plugin ([Xing4.0-plugin](https://github.com/XingChen-AGI/Xing4.0-plugin)); also integrates with **OpenCode, Claude Code**
+- **More**: GPTQModel, MLX (mlx-vlm / unsloth-zoo), PocketLLM, LocalAI GGUF gallery, RelicLLM (Ascend GGUF)
 
 **Everything on one card.** From *intent understanding* to *multi-step planning* to *tool invocation* — built to ship real work, not just chat.
 
