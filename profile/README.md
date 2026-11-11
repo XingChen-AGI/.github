@@ -110,6 +110,18 @@ Or try it on the [Tianyi AI open platform](https://www.teleai.com.cn/).
 
 ---
 
+## Legal
+
+| Document | Effective | Link |
+| --- | --- | --- |
+| Terms of Service | November 18, 2026 | [terms.html](https://xingchen-agi.github.io/legal/terms.html) |
+| Privacy Policy | November 18, 2026 | [privacy.html](https://xingchen-agi.github.io/legal/privacy.html) |
+| Data Retention Policy | November 18, 2026 | [retention.html](https://xingchen-agi.github.io/legal/retention.html) |
+
+For questions about these policies, or to request a Data Processing Agreement, contact **xingchen-agi@chinatelecom.cn**.
+
+---
+
 <p align="center">
 <b>Built by China Telecom Artificial Intelligence Technology Co., Ltd.</b>
 </p>
