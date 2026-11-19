@@ -1,127 +1,293 @@
 <div align="center">
-
-# XingChen-AGI
-
-The open-source organization of **China Telecom AI Technology Co., Ltd.**, building agent-era large language models and multimodal document intelligence.
-
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/XingChen-AGI/Xing4.0-29B-A4B/blob/main/LICENSE)
-[![SWE-bench Verified 75.0](https://img.shields.io/badge/SWE--bench%20Verified-75.0-brightgreen)](https://github.com/XingChen-AGI/Xing4.0-29B-A4B)
-[![Context 256K](https://img.shields.io/badge/Context-256K%20%E2%86%92%20512K-orange)](https://github.com/XingChen-AGI/Xing4.0-29B-A4B)
-
----
-
+<h1>
+  Xing4.0
+</h1>
 </div>
 
-## Who we are
+<p align="center">
+   🦉 <a href="https://github.com/XingChen-AGI/Xing4.0-29B-A4B" target="_blank">GitHub</a> • 🤗 <a href="https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B" target="_blank">Hugging Face</a> • 🤖 <a href="https://modelscope.cn/models/XingChen-AGI/Xing4.0-29B-A4B" target="_blank">ModelScope</a> • 🪐 <a href="https://modelers.cn/models/XingChen-AGI/Xing4.0-29B-A4B" target="_blank">Modelers</a> • 📖 <a href="./README_zh.md">中文版</a>
+</p>
 
-**XingChen-AGI** is the open-source organization of China Telecom AI Technology Co., Ltd. We focus on two things:
+# Table of Contents
 
-1. **Agent-era large language models** that move from passive Q&A to task execution — long-context planning, multi-step reasoning, tool calling, and structured output.
-2. **Multimodal document intelligence** that turns scanned documents, PDFs, tables, formulas and charts into clean, machine-readable data.
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+    - [Xing4.0](#xing40)
+- [News](#news)
+- [Model](#model)
+- [Evaluation](#evaluation)
+- [Quickstart](#quickstart)
+    - [Local Inference](#local-inference)
+    - [Serving](#serving)
+      - [vLLM](#vllm)
+      - [SGLang](#sglang)
+      - [KTransformers](#ktransformers)
+    - [Recommended Parameters](#recommended-parameters)
+      - [Xing4.0-29B-A4B Inference Parameters](#xing40-29b-a4b-inference-parameters)
+- [Fine-tuning](#fine-tuning)
+    - [LLaMA-Factory](#llama-factory)
+    - [MindFormers](#mindformers)
+    - [FlagOS](#flagos)
+- [Acknowledgments](#acknowledgments)
+- [Disclaimer, License \& Citation](#disclaimer-license--citation)
+    - [Disclaimer](#disclaimer)
+    - [Citation](#citation)
 
----
 
-## Flagship project
+# Introduction
 
-### Xing4.0-29B-A4B — our agentic flagship
+### Xing4.0
 
-- Repo: [GitHub](https://github.com/XingChen-AGI/Xing4.0-29B-A4B) · [Hugging Face](https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B) · [ModelScope](https://modelscope.cn/) · License: Apache 2.0
+**Xing4.0** is developed by China Telecom Artificial Intelligence Technology Co., Ltd. It is the latest generation of [TeleChat](https://github.com/Tele-AI/TeleChat3), trained entirely on the Ascend NPU platform.
 
-A **Mixture-of-Experts (MoE)** model — trained end-to-end on a fully in-house stack, from silicon to software.
+**Xing4.0-29B-A4B** has 29B total parameters and only 4B activated per token. It natively supports a 256K context length, extensible to 512K. It is the first model of this scale trained entirely on the Ascend NPU platform with the MindSpore framework, and deeply optimized for complex engineering tasks. Key features include:
 
-| Dimension | Value |
-|---|---|
-| Total / Activated params | **29B / 4B** (activated ratio ~13.8%) |
-| Architecture | MoE · mHC + MLA + MTP |
-| Context length | Native **256K**, extensible to **512K** |
-| Training corpus | **1.5 trillion** high-quality bilingual tokens |
-| Quantization | BF16 / FP8 / INT4 — 4-bit runs in **~15GB VRAM** (RTX 3090 / 4090) |
+- **Agent-Oriented Architecture**: Built on the mHC + MLA + MTP architecture, supporting multi-step planning, tool calling, and complex reasoning chain execution, ensuring task coherence and execution stability under long contexts.
+- **Deep Co-optimization with Ascend NPU**: Adapted for Ascend 910C clusters using MindSpore/MindFormers, including feature adaptation for mHC, cross-framework numerical alignment, and fused operator development, enabling stable and efficient training on the Ascend platform.
+- **Significant Training Efficiency Gains**: Through multi-level co-optimization — including fine-grained MoE communication optimization, selective recomputation, DVM automatic graph-operator fusion, and Ascend C mHC fused operators — overall training throughput was improved by approximately **96%** over out-of-the-box performance.
+- **Full Open-Source Ecosystem Compatibility**: Fine-tuning via **ms-swift** (v4.6.0+) and **LLaMA-Factory** (main branch), plus MindFormers; serving via **SGLang** (native, main branch) and vLLM (via the official plugin); local GGUF inference via **llama.cpp** (b12174+); with targeted adaptation and format alignment for agent frameworks such as OpenCode, Claude Code, OpenClaw, and Hermes, enabling seamless integration into existing workflows. On the hardware side, multi-chip platform adaptation has been completed via BAAI FlagOS, supporting cross-architecture one-click deployment.
+- **Easy Adaptation for Domain-Specific Scenarios**: Well-suited for downstream task fine-tuning, allowing lightweight customization on proprietary data for vertical domains such as intent classification, table understanding, contract auditing, and knowledge-based QA, enabling rapid domain capability development and deployment at low cost.
 
-**Benchmarks**
+# News
+- 2026-11-05 Xing4.0 native support in the **SGLang main branch** and the **llama.cpp main branch** (b12174+, GGUF on CPU / CUDA)
+- 2026-09-17 Open-sourced **Xing4.0-29B-A4B** [[HuggingFace Hub](https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B) | [ModelScope](https://modelscope.cn/models/XingChen-AGI/Xing4.0-29B-A4B) | [Modelers](https://modelers.cn/models/XingChen-AGI/Xing4.0-29B-A4B)]
+- 2026-09-17 Open-sourced **Xing4.0-29B-A4B-FP8** [[HuggingFace Hub](https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B-FP8) | [ModelScope](https://modelscope.cn/models/XingChen-AGI/Xing4.0-29B-A4B-FP8) | [Modelers](https://modelers.cn/models/XingChen-AGI/Xing4.0-29B-A4B-FP8)] and **Xing4.0-29B-A4B-GGUF** [[HuggingFace Hub](https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B-GGUF) | [ModelScope](https://modelscope.cn/models/XingChen-AGI/Xing4.0-29B-A4B-GGUF) | [Modelers](https://modelers.cn/models/XingChen-AGI/Xing4.0-29B-A4B-GGUF)]
 
-- **SWE-bench Verified 75.0** — a flagship code-agent score
-- **SuperCLUE Agent 93.52** (ranked **#3**)
+# Model
+The model architecture of **Xing4.0-29B-A4B** is as follows:
 
-**Native upstream support, merged into the mainlines:**
+|            | Layers | Hidden Size | Dense FFN Intermediate Size | Expert Intermediate Size | Attention Type | Number of Routed Experts | Active Experts per Token | Number of Shared Experts |
+|------------|--------|-------------|----------------------------|--------------------------|----------------|--------------------------|--------------------------|--------------------------|
+| Xing4.0-29B-A4B  | 40     | 3584        | 9216                   | 1024                | MLA       | 64             | 4                 | 1              |
 
-- **llama.cpp** ([#31589](https://github.com/ggml-org/llama.cpp/pull/31589), **b12174+**) — mainline GGUF inference on CPU / CUDA with zero new ggml operators
-- **SGLang** ([#39793](https://github.com/sgl-project/sglang/pull/39793)) — native serving support
-- **Training**: ms-swift ([#10275](https://github.com/modelscope/ms-swift/pull/10275)) and LLaMA-Factory ([#10754](https://github.com/hiyouga/LlamaFactory/pull/10754)) merged
-- **vLLM** — via the official plugin ([Xing4.0-plugin](https://github.com/XingChen-AGI/Xing4.0-plugin)); also integrates with OpenCode, Claude Code
-- **More**: GPTQModel, MLX (mlx-vlm / unsloth-zoo), PocketLLM, LocalAI GGUF gallery, RelicLLM (NPU GGUF)
 
-Related work:
+# Evaluation
 
-- [Xing4.0-plugin](https://github.com/XingChen-AGI/Xing4.0-plugin) — load and serve Xing4.0-29B-A4B in vLLM as an out-of-tree plugin
-- [CMPA-SLU](https://github.com/XingChen-AGI/CMPA-SLU) — spoken-language understanding research code
+We systematically evaluated Xing4.0-29B-A4B across a range of representative benchmarks. The results are as follows:
 
----
+- **Coding Agent**: Xing4.0-29B-A4B achieves strong results on SWE-bench Verified (75.0), SWE-bench Multilingual (66.0), and Terminal-Bench 2.1 (57.5). On SWE-bench Verified (75.0), it approaches Qwen3.6-35B-A3B (76.0) and significantly outperforms Gemma4-26B-A4B (53.0). On Terminal-Bench 2.1 (57.5), it surpasses both Qwen3.6-35B-A3B (51.5) and Gemma4-26B-A4B (30.0).
 
-### Xing4.0-29B-Intent — schema-guided structured output
+- **General Agent**: Xing4.0-29B-A4B demonstrates strong performance on Claw-Eval (76.55), DeepresearchBII (60.80), and Tau3-Bench (64.63). On Claw-Eval (76.55), it outperforms both Qwen3.6-35B-A3B (74.54) and Gemma4-26B-A4B (71.49). On DeepresearchBII (60.80), it surpasses Qwen3.6-35B-A3B (59.70) and Gemma4-26B-A4B (39.30).
 
-- [GitHub](https://github.com/XingChen-AGI/Xing4.0-29B-Intent) · [Hugging Face](https://huggingface.co/XingChen-AGI/Xing4.0-29B-Intent) · [ModelScope](https://modelscope.cn/models/XingChen-AGI/Xing4.0-29B-Intent) · License: Apache 2.0
 
-A task-specific model for **schema-guided intent recognition and structured information extraction** — turns natural language into structured JSON for business systems: intelligent assistants, request routing and document extraction.
+| Benchmark              | Xing4.0-29B-A4B        | Gemma4-26B-A4B         | Qwen3.6-35B-A3B        |
+| ---------------------- | ---------------------- | ---------------------- | ---------------------- |
+| IFBench                | 69.67                  | <mark>**72.67**</mark> | 65.50                  |
+| AIME2026               | 90.00                  | 88.30                  | <mark>**92.70**</mark> |
+| AA.LCR                 | 61.00                  | <mark>**66.00**</mark> | 62.00                  |
+| Tau3-Bench             | 64.63                  | 58.90                  | <mark>**67.20**</mark> |
+| Claw-Eval              | <mark>**76.55**</mark> | 71.49                  | 74.54                  |
+| SWE-bench Verified     | 75.00                  | 53.00                  | <mark>**76.00**</mark> |
+| Terminal-Bench 2.1     | <mark>**57.50**</mark> | 30.00                  | 51.50                  |
+| SWE-bench Multilingual | 66.00                  | 51.00                  | <mark>**67.20**</mark> |
+| DeepresearchBII        | <mark>**60.80**</mark> | 39.30                  | 59.70                  |
 
-- **Four tasks in one model**: intent recognition & slot filling · named entity recognition · relation extraction · event extraction — unified `category + args` output, configured by schema
-- **Top overall score (58)** ahead of Gemini-3.6-Flash (49), Qwen3.8-Max (46) and GPT-5.6-Sol (45) — **best on 5 of 6 metrics**
-- **Companion dataset**: 2.75M samples unifying 61 public datasets in one schema-guided format (4 task types · 19 domains · 52 languages)
-- [XingIntent SDK](https://github.com/XingChen-AGI/Xing4.0-29B-Intent/tree/main/XingIntentSDK) — schema-driven training and structured inference tooling
-- Precision build: [FP8](https://huggingface.co/XingChen-AGI/Xing4.0-29B-Intent-FP8)
 
----
+# Quickstart
 
-## TeleOCR
+### Local Inference
 
-A compact (~1.2B) document-parsing VLM (formerly *NaviDC-OCR*) that robustly parses complex layouts, tables, formulas and scientific charts — including distorted real-world captures.
+**Inference Example**
 
-- **OmniDocBench V1.6 — #1** with **96.87**
-- **Wild-OmniDocBench — 88.53**
-- **ICDAR 2026 Sci-Chart Document Mining Challenge — Winner**
+```python
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
-Weights & code are open-sourced on [Hugging Face](https://huggingface.co/XingChen-AGI) and [GitHub](https://github.com/caipeng328/TeleOCR).
+path = "XingChen-AGI/Xing4.0-29B-A4B"
+tokenizer = AutoTokenizer.from_pretrained(path, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained(path, trust_remote_code=True, device_map="auto", dtype=torch.bfloat16)
 
----
+prompt = "Briefly explain the basic principles of quantum computing."
+messages = [{"role": "user", "content": prompt}]
+text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+model_inputs = tokenizer(text, return_tensors="pt").to(model.device)
 
-## Where to find us
+generated_ids = model.generate(
+    **model_inputs,
+    top_p=0.95,
+    temperature=1.0,
+    repetition_penalty=1.05,
+    max_new_tokens=32768
+)
 
-| Platform | Handle |
-| --- | --- |
-| GitHub (here) | `XingChen-AGI` |
-| Hugging Face | [huggingface.co/XingChen-AGI](https://huggingface.co/XingChen-AGI) |
-| ModelScope | `XingChen-AGI` |
-| Gitee / Modelers / AtomGit | `XingChen-AGI` |
-| Tianyi AI Open Platform | [teleai.com.cn](https://www.teleai.com.cn/) |
-
----
-
-## Get started
-
-```bash
-# clone the flagship
-git clone https://github.com/XingChen-AGI/Xing4.0-29B-A4B.git
-cd Xing4.0-29B-A4B
-
-# serve it with vLLM via our official plugin
-cd ../Xing4.0-plugin && pip install .
+response = tokenizer.decode(generated_ids[0], skip_special_tokens=False, spaces_between_special_tokens=False)
+# The model output contains a Chain-of-Thought; the final answer follows </think>
+answer = response.split("</think>")[-1].strip()
+print(answer)
 ```
 
-Or try it on the [Tianyi AI open platform](https://www.teleai.com.cn/).
 
----
+### Serving
+> [!NOTE]
+> **SGLang support is in the main branch** (merged 2026-11-05) — install from a recent main build to serve Xing4.0 natively. The [open-source plugin](https://github.com/XingChen-AGI/xing4-sglang-plugin) is still available for earlier versions, and vLLM support is released as an **open-source plugin** ([XingChen-AGI/xing4-vllm-plugin](https://github.com/XingChen-AGI/xing4-vllm-plugin)), enabling Xing4.0 support without modifying their source trees.
+>
+> **llama.cpp support in the main branch** (merged 2026-11-05) — GGUF weights from [Xing4.0-29B-A4B-GGUF](https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B-GGUF) can be served with **llama.cpp b12174+** on CPU / CUDA.
+>
+> The remaining inference framework adaptations have been submitted via pull requests, which are currently under review and **not yet merged into their main branches**. Before they are merged, please install from the corresponding PR branch to enable Xing4.0 support.
+>
+> | Framework | Pull Request | Status | Notes |
+> |-----------|-------------|--------|-------|
+> | SGLang | [sgl-project/sglang](https://github.com/sgl-project/sglang) | **Merged** (2026-11-05) | Native support in main branch; plugin available for earlier versions |
+> | llama.cpp | [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp) | **Merged** (2026-11-05) | Native support in main branch (b12174+), GGUF on CPU / CUDA |
+> | TensorRT-LLM | [NVIDIA/TensorRT-LLM#19283](https://github.com/NVIDIA/TensorRT-LLM/pull/19283) | Pending (install from commit `1b03b640fa93dc956f482b9d74f7124f14b28d71`) | Under NVIDIA review |
+> | KTransformers | [kvcache-ai/ktransformers#2168](https://github.com/kvcache-ai/ktransformers/pull/2168) | Pending (install from commit `f2f0e3a8c65cbb47249d429c6ca488a8652963c8`) | Needs rebase |
+>
+> For quick deployment, we also provide prebuilt Docker images that already integrate the corresponding PRs, so no source build is required:
+>
+> | Framework | Prebuilt Image |
+> |-----------|----------------|
+> | vLLM | `quay.io/xingchen-agi/xingchen-inference-vllm:v0.29.1rc1-xing4_0` |
+> | vLLM-Ascend | `quay.io/xingchen-agi/xingchen-inference-vllm-ascend:v0.26.0rc1-xing4_0` |
+> | SGLang | `quay.io/xingchen-agi/xingchen-inference-sglang:v0.5.20.rc1-xing4_0` |
+>
+> We recommend deploying following: [vLLM Deployment Guide](./tutorial/vLLM/xing4.0_vllm_en.md) (prebuilt image) | [vLLM Plugin Deployment Guide](./tutorial/vLLM/xing4.0_vllm_plugin_en.md) (open-source plugin) | [vLLM-Ascend Deployment Guide](./tutorial/vLLM-Ascend/xing4.0_vllm_ascend_en.md) | [SGLang Deployment Guide](./tutorial/SGLang/xing4.0_sglang_en.md) | [SGLang Plugin Deployment Guide](./tutorial/SGLang/xing4.0_sglang_plugin_en.md) (open-source plugin)
 
-## Legal
+#### vLLM
 
-| Document | Effective | Link |
-| --- | --- | --- |
-| Terms of Service | November 18, 2026 | [terms.html](https://xingchen-agi.github.io/legal/terms.html) |
-| Privacy Policy | November 18, 2026 | [privacy.html](https://xingchen-agi.github.io/legal/privacy.html) |
-| Data Retention Policy | November 18, 2026 | [retention.html](https://xingchen-agi.github.io/legal/retention.html) |
+[vLLM](https://github.com/vllm-project/vllm) is a high-throughput, low-latency LLM inference and serving engine that provides an OpenAI-compatible API out of the box.
 
-For questions about these policies, or to request a Data Processing Agreement, contact **xingchen-agi@chinatelecom.cn**.
+> [!TIP]
+> You can directly pull the prebuilt image `quay.io/xingchen-agi/xingchen-inference-vllm:v0.29.1rc1-xing4_0` and launch the service with Docker in one command. For detailed steps, parameter descriptions, and call examples, see the [Xing4.0 vLLM Deployment Guide](./tutorial/vLLM/xing4.0_vllm_en.md) | [Xing4.0 vLLM-Ascend Deployment Guide](./tutorial/vLLM-Ascend/xing4.0_vllm_ascend_en.md).
+>
+> Alternatively, use the official vLLM image `vllm/vllm-openai` as the base environment and deploy through the open-source plugin [XingChen-AGI/xing4-vllm-plugin](https://github.com/XingChen-AGI/xing4-vllm-plugin), without modifying the vLLM source tree. For detailed steps, see the [Xing4.0 vLLM Plugin Deployment Guide](./tutorial/vLLM/xing4.0_vllm_plugin_en.md).
 
----
+```shell
+vllm serve ${MODEL_PATH} \
+    --host 0.0.0.0 \
+    --port 8000 \
+    --served-model-name Xing4.0-29B-A4B \
+    --tensor-parallel-size 2 \
+    --trust-remote-code \
+    --max-model-len 262144 \
+    --gpu-memory-utilization 0.90 \
+    --max-num-seqs 4 \
+    --enable-auto-tool-choice \
+    --reasoning-parser xing4_0 \
+    --tool-call-parser xing4_0 \
+    --speculative-config '{"method":"mtp", "num_speculative_tokens": 1}'
+```
 
-<p align="center">
-<b>Built by China Telecom Artificial Intelligence Technology Co., Ltd.</b>
-</p>
+Once launched, the OpenAI-compatible API is available at `http://localhost:8000/v1`.
+
+#### SGLang
+
+[SGLang](https://github.com/sgl-project/sglang) is a high-performance serving framework for large language models and vision-language models.
+
+> [!TIP]
+> You can directly pull the prebuilt image `quay.io/xingchen-agi/xingchen-inference-sglang:v0.5.20.rc1-xing4_0` and deploy the service with Docker. For detailed steps, parameter descriptions, and call examples, see the [Xing4.0 SGLang Deployment Guide](./tutorial/SGLang/xing4.0_sglang_en.md).
+>
+> Since SGLang's Xing4.0 support landed in the main branch (2026-11-05), recent main builds serve Xing4.0 natively — no plugin required. For earlier versions, deploy through the open-source plugin [XingChen-AGI/xing4-sglang-plugin](https://github.com/XingChen-AGI/xing4-sglang-plugin), without modifying the SGLang source tree. For detailed steps, parameter descriptions, and call examples, see the [Xing4.0 SGLang Plugin Deployment Guide](./tutorial/SGLang/xing4.0_sglang_plugin_en.md).
+
+```shell
+sglang serve --model-path ${MODEL_PATH} \
+   --trust-remote-code \
+   --host 0.0.0.0 \
+   --port 8000 \
+   --served-model-name Xing4.0-29B-A4B \
+   --tp-size 2 \
+   --context-length 262144 \
+   --mem-fraction-static 0.90 \
+   --max-running-requests 4 \
+   --reasoning-parser xing4_0 \
+   --tool-call-parser xing4_0 \
+   --speculative-algorithm EAGLE
+```
+
+Once launched, the OpenAI-compatible API is available at `http://localhost:8000/v1`.
+
+#### KTransformers
+
+[KTransformers](https://github.com/kvcache-ai/ktransformers) is a flexible inference optimization framework that enables efficient execution of large-scale MoE models on limited GPU resources through heterogeneous computing (GPU/CPU co-processing).
+
+```
+python -m sglang.launch_server \
+  --host 0.0.0.0 \
+  --port 30000 \
+  --model-path ${MODEL_PATH} \
+  --served-model-name Xing4.0-29B-A4B \
+  --tensor-parallel-size 1 \
+  --trust-remote-code \
+  --attention-backend triton \
+  --kt-weight-path ${MODEL_PATH} \
+  --kt-method BF16 \
+  --kt-cpuinfer 50 \
+  --kt-threadpool-count 2 \
+  --kt-num-gpu-experts 24 \
+  --mem-fraction-static 0.9 \
+  --chunked-prefill-size 512 \
+  --max-total-tokens 65536 \
+  --tool-call-parser xing4_0 \
+  --reasoning-parser xing4_0
+```
+
+### Recommended Parameters
+#### Xing4.0-29B-A4B Inference Parameters
+- Complex reasoning / general tasks: `temperature=1.0, top_p=0.95, repetition_penalty=1.05`
+
+- Coding / agent tasks: `temperature=0.8, top_p=0.95, repetition_penalty=1.05`
+
+
+
+
+# Fine-tuning
+
+### LLaMA-Factory
+
+[LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) is an open-source framework for training and fine-tuning large language models, supporting pre-training, supervised fine-tuning (SFT), reward modeling (RM), PPO, DPO, KTO, ORPO, SimPO, and more.
+
+Xing4.0 supports fine-tuning, weight merging, inference, and deployment via LLaMA-Factory. For details, see [Xing4.0 LLaMA-Factory Fine-tuning Guide](./tutorial/llama_factory/xing4.0_llama_factory.md).
+
+### MindFormers
+
+[MindFormers](https://atomgit.com/mindspore/mindformers) is a large model development toolkit built on MindSpore, covering the full pipeline from pre-training, fine-tuning, inference, evaluation, to deployment. It includes built-in distributed strategies such as tensor parallelism, pipeline parallelism, and sequence parallelism, providing out-of-the-box capabilities for large model training on the Ascend platform.
+
+Xing4.0 has been adapted for Ascend Atlas 800T A3 clusters, supporting distributed training and evaluation with MindSpore + MindFormers. For details, see [Xing4.0 MindFormers Training Guide](./tutorial/mindformers/xing4.0_MindFormers.md).
+
+### FlagOS
+
+[FlagOS](https://docs.flagos.io/en/latest/) is an open-source AI system software stack for large model training, inference, and deployment, with adaptation support for mainstream frameworks and hardware platforms.
+
+Xing4.0 has integrated mHC Triton-Ascend fused operators into MindFormers via FlagOS, with single-node 16-card training validation completed. For details, see [Xing4.0 FlagOS Triton Operator Integration Guide](./tutorial/flagos/xing4.0_FlagOS_mHC_MindFormers.md).
+
+
+
+# Acknowledgments
+
+We extend our deepest gratitude to the open-source community — it is by standing on the shoulders of these giants that we are able to see further.
+
+Special thanks to the DeepSeek team. Drawing on the design wisdom of their model architecture brought significant stability and efficiency to our training process, making the path of exploration smoother and clearer.
+
+
+# Disclaimer, License & Citation
+
+### Disclaimer
+
+Do not use Xing4.0 or its derivative models for any activities that endanger national or social security, or violate applicable laws and regulations. Do not use it for internet services that have not undergone security review and filing.
+
+We have made every effort to ensure the compliance of the training data, but due to the complexity of models and data, unforeseen issues may still arise. We assume no liability for any issues arising from the use of this open-source model — including but not limited to data security risks, public opinion risks, and risks arising from the model being misled, misused, disseminated, or improperly utilized.
+
+
+### Citation
+If you find our work useful, please cite:
+
+```
+@misc{liu2025trainingreporttelechat3moe,
+      title={Training Report of TeleChat3-MoE}, 
+      author={Xinzhang Liu and Chao Wang and Zhihao Yang and Zhuo Jiang and Xuncheng Zhao and Haoran Wang and Lei Li and Dongdong He and Luobin Liu and Kaizhe Yuan and Han Gao and Zihan Wang and Yitong Yao and Sishi Xiong and Wenmin Deng and Haowei He and Kaidong Yu and Yu Zhao and Ruiyu Fang and Yuhao Jiang and Yingyan Li and Xiaohui Hu and Xi Yu and Jingqi Li and Yanwei Liu and Qingli Li and Xinyu Shi and Junhao Niu and Chengnuo Huang and Yao Xiao and Ruiwen Wang and Fengkai Li and Luwen Pu and Kaipeng Jia and Fubei Yao and Yuyao Huang and Xuewei He and Zhuoru Jiang and Ruiting Song and Rui Xue and Qiyi Xie and Jie Zhang and Zilu Huang and Zhaoxi Zhang and Zhilong Lu and Yanhan Zhang and Yin Zhang and Yanlei Xue and Zhu Yuan and Teng Su and Xin Jiang and Shuangyong Song and Yongxiang Li and Xuelong Li},
+      year={2025},
+      eprint={2512.24157},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2512.24157}, 
+}
+
+@misc{wang2025technicalreporttelechat2telechat25,
+      title={Technical Report of TeleChat2, TeleChat2.5 and T1}, 
+      author={Zihan Wang and Xinzhang Liu and Yitong Yao and Chao Wang and Yu Zhao and Zhihao Yang and Wenmin Deng and Kaipeng Jia and Jiaxin Peng and Yuyao Huang and Sishi Xiong and Zhuo Jiang and Kaidong Yu and Xiaohui Hu and Fubei Yao and Ruiyu Fang and Zhuoru Jiang and Ruiting Song and Qiyi Xie and Rui Xue and Xuewei He and Yanlei Xue and Zhu Yuan and Zhaoxi Zhang and Zilu Huang and Shiquan Wang and Xin Wang and Hanming Wu and Mingyuan Wang and Xufeng Zhan and Yuhan Sun and Zhaohu Xing and Yuhao Jiang and Bingkai Yang and Shuangyong Song and Yongxiang Li and Zhongjiang He and Xuelong Li},
+      year={2025},
+      eprint={2507.18013},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2507.18013}, 
+}
+```
