@@ -42,13 +42,13 @@ A **285B-total / 17B-active Mixture-of-Experts (MoE)** model purpose-built for *
 
 Full benchmark results will be published with the technical report at the official release; no scores are quoted before they are confirmed through official channels.
 
-**Native in the open ecosystem** — Xing4.1-Preview runs directly across the ecosystem already integrated upstream for the Xing 4 family: [**llama.cpp**](https://github.com/ggml-org/llama.cpp) (`b12174+`) for local GGUF inference, [**ms-swift**](https://github.com/modelscope/ms-swift) (`v4.6.0+`) and [**LLaMA-Factory**](https://github.com/hiyouga/LLaMA-Factory) (main branch) for fine-tuning, [**SGLang**](https://github.com/sgl-project/sglang) (main branch) and the official **vLLM** [plugin](https://github.com/XingChen-AGI/xing4-vllm-plugin) for serving; [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) and [KTransformers](https://github.com/kvcache-ai/ktransformers) support is under upstream review.
+**Native in the open ecosystem** — Xing4.1-Preview runs directly on the fine-tuning and serving integrations already merged upstream for the Xing 4 family: [**ms-swift**](https://github.com/modelscope/ms-swift) (`v4.6.0+`) and [**LLaMA-Factory**](https://github.com/hiyouga/LLaMA-Factory) (main branch) for fine-tuning, [**SGLang**](https://github.com/sgl-project/sglang) (main branch) and the official **vLLM** [plugin](https://github.com/XingChen-AGI/xing4-vllm-plugin) for serving, with [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) support under upstream review. The Xing4.0 series additionally runs on [**llama.cpp**](https://github.com/ggml-org/llama.cpp) (`b12174+`) for local GGUF inference and [KTransformers](https://github.com/kvcache-ai/ktransformers), which do not apply to Xing4.1-Preview.
 
 ### Xing4.0 series — our first agentic workhorse
 
 - [GitHub](https://github.com/XingChen-AGI/Xing4.0-29B-A4B) · [Hugging Face](https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B) · [ModelScope](https://modelscope.cn/) · License: Apache 2.0
 
-**[Xing4.0-29B-A4B](https://github.com/XingChen-AGI/Xing4.0-29B-A4B)**: a 29B / 4B-active MoE with a native 256K context (extensible to 512K), **SWE-bench Verified 75.0** and **SuperCLUE Agent 93.52** (ranked #3), open under Apache 2.0 with BF16 / FP8 / W8A8 / GGUF builds. Xing4.0 and Xing4.1 use different architectures (Xing4.1 adopts DSA and cross-layer IndexShare), but because their upstream interfaces stay compatible, Xing4.1 reuses the same merged upstream support listed above.
+**[Xing4.0-29B-A4B](https://github.com/XingChen-AGI/Xing4.0-29B-A4B)**: a 29B / 4B-active MoE with a native 256K context (extensible to 512K), **SWE-bench Verified 75.0** and **SuperCLUE Agent 93.52** (ranked #3), open under Apache 2.0 with BF16 / FP8 / W8A8 / GGUF builds. Xing4.0 and Xing4.1 use different architectures (Xing4.1 adopts MLA + DSA), but because their upstream interfaces stay compatible, Xing4.1 reuses the merged fine-tuning and serving support listed above (llama.cpp and KTransformers remain Xing4.0-only).
 
 Related work:
 
