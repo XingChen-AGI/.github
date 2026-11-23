@@ -29,7 +29,7 @@ The open-source organization of **China Telecom AI Technology Co., Ltd.**, relea
 
 - Repo: [GitHub](https://github.com/XingChen-AGI/Xing4.1-Preview) · [Hugging Face](https://huggingface.co/XingChen-AGI/Xing4.1-Preview) · [ModelScope](https://modelscope.cn/models/XingChen-AGI/Xing4.1-Preview) · License: Apache 2.0
 
-A **285B-total / 17B-active Mixture-of-Experts (MoE)** model purpose-built for **agentic coding and long-horizon agent workflows**, with a **native 1M context**. Trained end-to-end on a fully in-house domestic compute stack — from silicon to software — with the architecture co-designed around the accelerator's matrix-heavy compute profile.
+**Trained end-to-end on a fully domestic stack — 8,192 domestic AI accelerators, the open-source MindSpore framework, and an in-house training system.** A **285B-total / 17B-active Mixture-of-Experts (MoE)** model purpose-built for **agentic coding and long-horizon agent workflows**, with a **native 1M context** and an architecture co-designed around the accelerator's matrix-heavy compute profile rather than ported onto it.
 
 | Dimension | Value |
 |---|---|
