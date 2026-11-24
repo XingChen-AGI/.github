@@ -29,7 +29,7 @@ The open-source organization of **China Telecom AI Technology Co., Ltd.**, relea
 
 - Repo: [GitHub](https://github.com/XingChen-AGI/Xing4.1-Preview) · [Hugging Face](https://huggingface.co/XingChen-AGI/Xing4.1-Preview) · [ModelScope](https://modelscope.cn/models/XingChen-AGI/Xing4.1-Preview) · License: Apache 2.0
 
-**Trained end-to-end on a fully domestic stack — 8,192 domestic AI accelerators, the open-source MindSpore framework, and an in-house training system.** A **285B-total / 17B-active Mixture-of-Experts (MoE)** model purpose-built for **agentic coding and long-horizon agent workflows**, with a **native 1M context** and an architecture co-designed around the accelerator's matrix-heavy compute profile rather than ported onto it.
+**Trained end-to-end on 8,192 Ascend 910C accelerators, the open-source MindSpore framework, and an in-house training system.** A **285B-total / 17B-active Mixture-of-Experts (MoE)** model purpose-built for **agentic coding and long-horizon agent workflows**, with a **native 1M context** and an architecture co-designed around the accelerator's matrix-heavy compute profile rather than ported onto it.
 
 | Dimension | Value |
 |---|---|
@@ -45,6 +45,8 @@ The open-source organization of **China Telecom AI Technology Co., Ltd.**, relea
 **Weights are released in PyTorch (Hugging Face Transformers) format** — the native training format is MindSpore; the weights were fully converted before release (safetensors shards), so they load directly in Transformers, SGLang and vLLM. Precision builds: [FP8](https://huggingface.co/XingChen-AGI/Xing4.1-Preview-FP8) · [NVFP4](https://huggingface.co/XingChen-AGI/Xing4.1-Preview-NVFP4).
 
 **Native in the open ecosystem** — Xing4.1-Preview runs directly on the fine-tuning and serving integrations already merged upstream for the Xing 4 family: [**ms-swift**](https://github.com/modelscope/ms-swift) (`v4.6.0+`) and [**LLaMA-Factory**](https://github.com/hiyouga/LLaMA-Factory) (main branch) for fine-tuning, [**SGLang**](https://github.com/sgl-project/sglang) (main branch) and the official **vLLM** [plugin](https://github.com/XingChen-AGI/xing4-vllm-plugin) for serving, with [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) support under upstream review. The Xing4.0 series additionally runs on [**llama.cpp**](https://github.com/ggml-org/llama.cpp) (`b12174+`) for local GGUF inference and [KTransformers](https://github.com/kvcache-ai/ktransformers), which do not apply to Xing4.1-Preview.
+
+**Related papers:** [Xing4 Technical Report](https://arxiv.org/abs/2611.22115) · [cmHC](https://arxiv.org/abs/2611.27193)
 
 ### Xing4.0 series — our first agentic workhorse
 
