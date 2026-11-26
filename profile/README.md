@@ -2,7 +2,7 @@
 
 # XingChen-AGI
 
-The open-source organization of **China Telecom AI Technology Co., Ltd.**, releasing open models across large language models, multimodal, computer vision, and speech.
+The open-source organization of **China Telecom Artificial Intelligence Technology (Beijing) Co., Ltd.**, releasing open models across large language models, multimodal, computer vision, and speech.
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/XingChen-AGI/Xing4.1-Preview/blob/main/LICENSE)
 [![Params 285B / 17B](https://img.shields.io/badge/Params-285B%20%2F%2017B%20active-7C3AED)](https://github.com/XingChen-AGI/Xing4.1-Preview)
@@ -14,7 +14,7 @@ The open-source organization of **China Telecom AI Technology Co., Ltd.**, relea
 
 ## Who we are
 
-**XingChen-AGI** is the open-source organization of China Telecom AI Technology Co., Ltd. We release open models across four areas:
+**XingChen-AGI** is the open-source organization of China Telecom Artificial Intelligence Technology (Beijing) Co., Ltd. We release open models across four areas:
 
 1. **Large language models** — agent-era models that move from passive Q&A to task execution: long-context planning, multi-step reasoning, tool calling, and structured output.
 2. **Multimodal models** — vision-and-language understanding, including document intelligence that turns scanned documents, PDFs, tables, formulas and charts into clean, machine-readable data.
@@ -40,13 +40,44 @@ The open-source organization of **China Telecom AI Technology Co., Ltd.**, relea
 | License | Apache 2.0 |
 | Release date | **2026-11-23** |
 
-**Benchmarks** — on agentic and reasoning benchmarks it sits in the same competitive band as same-class flash models: **49.7** on Claw-Eval (pass^3), **20.6** on Terminal-Bench 4.0 (GPU-sandbox tasks skipped), **45.3** on AutomationBench v1.0.6 and **50.7** on Apex-Agents v1.1. Competitor scores are taken from their public reports; the full table with notes is in the [model card](https://github.com/XingChen-AGI/Xing4.1-Preview#evaluation).
+**Benchmarks** — evaluated across reasoning, coding, agent, and long-document reasoning benchmarks against same-class models, including **85.2** on MMLU-Pro, **89.34** on GPQA Diamond, **74.5** on SWE-Bench Pro V2 (Hard51), **80.8** on Terminal-Bench 2.1, and **80.6** on Claw-Eval (text-only). Competitor scores are taken from their public reports; the full table with notes is in the [model card](https://github.com/XingChen-AGI/Xing4.1-Preview#evaluation).
 
 **Weights are released in PyTorch (Hugging Face Transformers) format** — the native training format is MindSpore; the weights were fully converted before release (safetensors shards), so they load directly in Transformers, SGLang and vLLM. Precision builds: [FP8](https://huggingface.co/XingChen-AGI/Xing4.1-Preview-FP8) · [NVFP4](https://huggingface.co/XingChen-AGI/Xing4.1-Preview-NVFP4).
 
-**Native in the open ecosystem** — Xing4.1-Preview runs directly on the fine-tuning and serving integrations already merged upstream for the Xing 4 family: [**ms-swift**](https://github.com/modelscope/ms-swift) (`v4.6.0+`) and [**LLaMA-Factory**](https://github.com/hiyouga/LLaMA-Factory) (main branch) for fine-tuning, [**SGLang**](https://github.com/sgl-project/sglang) (main branch) and the official **vLLM** [plugin](https://github.com/XingChen-AGI/xing4-vllm-plugin) for serving, with [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) support under upstream review. The Xing4.0 series additionally runs on [**llama.cpp**](https://github.com/ggml-org/llama.cpp) (`b12174+`) for local GGUF inference and [KTransformers](https://github.com/kvcache-ai/ktransformers), which do not apply to Xing4.1-Preview.
+**Native in the open ecosystem** — Xing4.1-Preview runs directly on the fine-tuning and serving integrations already merged upstream for the Xing 4 family: [**ms-swift**](https://github.com/modelscope/ms-swift) (`v4.6.0+`) and [**LLaMA-Factory**](https://github.com/hiyouga/LLaMA-Factory) (main branch) for fine-tuning, [**SGLang**](https://github.com/sgl-project/sglang) (main branch), the official **vLLM** [plugin](https://github.com/XingChen-AGI/xing4-vllm-plugin) and **vLLM-Ascend** on [Ascend NPUs](https://github.com/XingChen-AGI/Xing4.1-Preview/blob/main/tutorial/vLLM-Ascend/README.md) for serving, with [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) support under upstream review. The Xing4.0 series additionally runs on [**llama.cpp**](https://github.com/ggml-org/llama.cpp) (`b12174+`) for local GGUF inference and [KTransformers](https://github.com/kvcache-ai/ktransformers), which do not apply to Xing4.1-Preview.
 
-**Related papers:** [Xing4 Technical Report](https://arxiv.org/abs/2611.22115) · [cmHC](https://arxiv.org/abs/2611.27193)
+**Related papers:** [Xing4 Technical Report](https://arxiv.org/abs/2611.22115)
+
+## Official platform, API & pricing
+
+Xing4.1-Preview is served through an **OpenAI-compatible API** on the [Tianyi AI open platform](https://www.teleai.com.cn/product/Xing4-1-Preview).
+
+| Item                         | Link                                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------------- |
+| Product page                 | [teleai.com.cn/product/Xing4-1-Preview](https://www.teleai.com.cn/product/Xing4-1-Preview)  |
+| API docs (OpenAI-compatible) | `https://api-maas.teleai.com.cn/v1` · model id `Xing4.1-Preview` (see docs on the platform) |
+| Pricing                      | [Pricing](YOUR_PRICING_LINK)                                                                |
+| User Agreement               | [User Agreement](https://www.teleai.com.cn/doc/RUgY3cSPMuhKl06aM1hw/CA3EOJi8MlwJH7gkEVQx)   |
+| Privacy Policy               | [Privacy Policy](https://www.teleai.com.cn/doc/xewi3C5y15p87wcRIKfH/GJet9K8NKJrIKnz1hYuK)   |
+
+**API access (OpenAI-compatible):**
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="YOUR_API_KEY",
+    base_url="https://api-maas.teleai.com.cn/v1",
+)
+
+response = client.chat.completions.create(
+    model="Xing4.1-Preview",
+    messages=[{"role": "user", "content": "Hello!"}],
+)
+print(response.choices[0].message.content)
+```
+
+For details on capabilities, context window, and usage limits, see the official product page and API documentation on the platform.
 
 ### Xing4.0 series — our first agentic workhorse
 
@@ -112,5 +143,5 @@ Or try the models through the OpenAI-compatible API on the [Tianyi AI open platf
 ---
 
 <p align="center">
-<b>Built by China Telecom Artificial Intelligence Technology Co., Ltd.</b>
+<b>Built by China Telecom Artificial Intelligence Technology (Beijing) Co., Ltd.</b>
 </p>
